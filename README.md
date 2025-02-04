@@ -1,98 +1,36 @@
-# 🚀 Projeto: Interrupções e Controle de LEDs com RP2040 e BitDogLab
+# README - Semáforo com LED RGB
 
-## 📌 Enunciado
-Este projeto tem como objetivo consolidar o entendimento sobre o uso de **interrupções** no microcontrolador **RP2040**, bem como explorar as funcionalidades da placa **BitDogLab** através da interação entre botões e LEDs.
+## Descrição
+Este projeto implementa um semáforo utilizando um LED RGB conectado aos GPIOs 11, 12 e 13, simulando a sequência de cores de um semáforo (vermelho, amarelo e verde). A troca de estados é controlada por um temporizador com atraso de 3 segundos (3.000 ms). Durante a execução, uma mensagem é impressa na porta serial a cada segundo (1.000 ms).
 
-## 🎯 Objetivos
-- Compreender o funcionamento e a aplicação de **interrupções** em microcontroladores.
-- Implementar **debouncing via software** para eliminar o efeito de bouncing em botões.
-- Controlar LEDs comuns e LEDs **endereçáveis WS2812**.
-- Estudar e utilizar **resistores de pull-up internos** para acionamento de botões.
-- Desenvolver um projeto funcional que combina **hardware e software**.
+## Requisitos
+- Plataforma de desenvolvimento compatível com a Ferramenta Educacional BitDogLab
+- LED RGB conectado aos GPIOs 11, 12 e 13
+- Temporizador configurado para controle do semáforo
+- Interface serial para exibição de mensagens
 
----
+## Funcionamento
+1. O LED RGB inicia na cor vermelha.
+2. Após 3 segundos, muda para amarelo.
+3. Após mais 3 segundos, muda para verde.
+4. O ciclo se repete continuamente.
+5. A cada segundo, uma mensagem é enviada pela porta serial.
 
-## 🔧 Componentes Utilizados
-- **Placa de Desenvolvimento**: BitDogLab (RP2040)
-- **Matriz 5x5 de LEDs WS2812** (endereçáveis), conectada à **GPIO 7**
-- **LED RGB** (pinos conectados às GPIOs **11, 12 e 13**)
-- **Botão A** (GPIO **5**)
-- **Botão B** (GPIO **6**)
+## Implementação
+- A mudança de estado do LED RGB é realizada dentro da função de call-back do temporizador (repeating_timer_callback()).
+- O loop principal (while) exibe mensagens na serial a cada 1 segundo (1.000 ms).
 
----
+## GPIOs Utilizados
+- **GPIO 11** - Canal de cor Vermelha do LED RGB
+- **GPIO 12** - Canal de cor Amarela do LED RGB
+- **GPIO 13** - Canal de cor Verde do LED RGB
 
-## ⚡ Funcionalidades do Projeto
-1. **Piscar LED RGB**
-   - O LED vermelho do **LED RGB** pisca **5 vezes por segundo** (frequência de 5 Hz).
+## Como Executar
+1. Conecte o LED RGB corretamente aos pinos indicados.
+2. Compile e carregue o código na placa.
+3. Observe a mudança de cores do LED RGB conforme a lógica do semáforo.
+4. Acompanhe as mensagens enviadas pela porta serial.
 
-2. **Incrementação de Números (Botão A)**
-   - Cada vez que o **Botão A** (GPIO 5) for pressionado, o número exibido na matriz de LEDs **aumenta em 1**.
-
-3. **Decrementação de Números (Botão B)**
-   - Cada vez que o **Botão B** (GPIO 6) for pressionado, o número exibido na matriz de LEDs **diminui em 1**.
-
-4. **Exibição de Números na Matriz de LEDs WS2812**
-   - Os LEDs da matriz exibem **números de 0 a 9**.
-   - O formato pode ser **digital (segmentos iluminados)** ou um **estilo criativo**, desde que os números sejam legíveis.
-
----
-
-## 🛠️ Implementação Técnica
-- **Interrupções GPIO**
-  - Configuradas para detectar **borda de descida** no acionamento dos botões.
-  - Função de interrupção **modifica variáveis globais** para alterar o estado do sistema.
-
-- **Debouncing via Software**
-  - Implementado por meio de **verificação de tempo decorrido** entre eventos (200 ms de intervalo).
-
-- **Controle de LEDs WS2812**
-  - Biblioteca de controle utilizada para comunicação com LEDs endereçáveis.
-  - Exibição de números formatados na matriz **5x5**.
-
----
-
-## 🔄 Fluxo de Execução
-1. O programa inicia e começa a piscar o **LED vermelho**.
-2. Os botões A e B são monitorados via **interrupções**.
-3. Quando pressionados, o valor na matriz de LEDs **aumenta ou diminui**.
-4. O sistema atualiza a exibição do número na matriz em tempo real.
-
----
-
-## 🚀 Como Rodar o Projeto
-### 📌 Pré-requisitos
-- Placa **BitDogLab** com microcontrolador **RP2040**
-- Ambiente de desenvolvimento configurado (**Raspberry Pi Pico SDK**, **CMake**, **Toolchain ARM**)
-- Biblioteca de controle para **WS2812**
-
-### 📌 Passos
-1. Clone o repositório e entre na pasta do projeto:
-   ```sh
-   git clone https://github.com/4dot4/U4C4O12T.git
-   cd U4C4O12T
-   ```
-2. Compile o código:
-  
-3. Envie o firmware para a placa:
-   - Conecte a **BitDogLab** ao PC enquanto pressiona o botão **BOOTSEL**.
-   - Arraste o arquivo `.uf2` gerado para a unidade montada no sistema.
-4. O projeto estará rodando na placa! 🎉
-
----
-
-## 🎥 Demonstração
-Confira o funcionamento do projeto no vídeo abaixo:
-
-[![Vídeo do Projeto]()](https://youtube.com/shorts/gwQdLdeLa_k)
-
----
-
-## 📜 Licença
-Este projeto é de código aberto sob a licença **MIT**.
-
-
----
-
-📩 Para dúvidas ou sugestões, entre em contato!
-
+## Autor
+Projeto desenvolvido como parte da atividade educacional com a Ferramenta BitDogLab.
 
